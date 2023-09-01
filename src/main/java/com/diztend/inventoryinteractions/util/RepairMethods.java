@@ -40,7 +40,7 @@ public class RepairMethods {
         inventory.setStack(2, stack);
         inventory.setStack(0, otherStack);
         Optional<CraftingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, inventory, world);
-        if (recipe.isPresent()) {
+        if (recipe.isPresent() && !recipe.get().getOutput().isEmpty()) {
             ItemStack output = recipe.get().getOutput().copy();
             int stackCount = stack.getCount();
             int otherStackCount = otherStack.getCount();
