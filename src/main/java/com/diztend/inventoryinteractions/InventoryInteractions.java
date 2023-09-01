@@ -30,7 +30,7 @@ public class InventoryInteractions implements ModInitializer {
 	public void onInitialize() {
 		InventoryClickEvent.addListener( (button, slot, cursorStack, cursorSlot, entity) -> {
 			ItemStack tool = slot.getStack();
-			World world = entity.world;
+			World world = entity.getWorld();
 			if (button == 1 && !tool.isEmpty() && !cursorStack.isEmpty() && !world.isClient()){
 				if (tool.isDamaged()) {
 					if (tool.getItem().canRepair(tool, cursorStack) || world.getGameRules().getBoolean(DO_UNIT_REPAIR)) {
