@@ -1,0 +1,7 @@
+{
+  "gamerule.doUnitRepair": "Right-click to unit repair",
+  "gamerule.doUnitRepairEnchanted": "Right-click repairing for enchanted items",
+  "gamerule.doToolCombine": "Right-click to combine tools",
+  "gamerule.doQuickRename": "Right-click to rename",
+  "gamerule.doQuickCrafting": "Right-click to craft"
+}
