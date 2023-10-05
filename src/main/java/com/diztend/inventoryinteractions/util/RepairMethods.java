@@ -2,8 +2,10 @@ package com.diztend.inventoryinteractions.util;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
+import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.CraftingRecipe;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.world.World;
@@ -34,13 +36,14 @@ public class RepairMethods {
         return true;
     }
 
-    public static boolean tryCraft(ItemStack stack, ItemStack otherStack, Slot slot, PlayerEntity player, World world) {
+    public static boolean tryCraft(ItemStack stack, ItemStack otherStack, Slot slot, StackReference cursorSlot, PlayerEntity player, World world) {
         CraftingInventory inventory = new CraftingInventory(player.playerScreenHandler, 2, 2);
         inventory.setStack(2, stack);
         inventory.setStack(0, otherStack);
-        Optional<CraftingRecipe> recipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, inventory, world);
-        if (recipe.isPresent()) {
-            ItemStack output = recipe.get().getOutput().copy();
+        Optional<RecipeEntry<CraftingRecipe>> recipe = world.getRecipeManager().getFirstMatch(RecipeType.CRAFTING, inventory, world);
+        if (recipe.isPresent() && !recipe.get().value().getResult(world.getRegistryManager()).isEmpty()) {
+            CraftingRecipe r = recipe.get().value();
+            ItemStack output = r.getResult(world.getRegistryManager()).copy();
             int stackCount = stack.getCount();
             int otherStackCount = otherStack.getCount();
             int minStackCount = Math.min(stackCount, otherStackCount);
@@ -52,7 +55,7 @@ public class RepairMethods {
                 craftedStackCount = Math.max(0, craftedStackCount - output.getMaxCount());
                 slot.setStack(output.copy());
                 output.setCount(craftedStackCount);
-                player.inventory.setCursorStack(output.copy());
+                cursorSlot.set(output.copy());
                 return true;
             } else if (craftedStackCount <= output.getMaxCount()) {
                 output.setCount(craftedStackCount);
@@ -62,7 +65,7 @@ public class RepairMethods {
                     return true;
                 } else {
                     stack.setCount(stackCount);
-                    player.inventory.setCursorStack(stack.copy());
+                    cursorSlot.set(stack.copy());
                     slot.setStack(output.copy());
                     return true;
                 }

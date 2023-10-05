@@ -5,8 +5,6 @@ import com.diztend.inventoryinteractions.util.RepairMethods;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
 import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.DyeableItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.world.GameRules;
@@ -30,9 +28,9 @@ public class InventoryInteractions implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		InventoryClickEvent.addListener((slotIndex, button, slot, cursorStack, actionType, entity) -> {
+		InventoryClickEvent.addListener( (button, slot, cursorStack, cursorSlot, entity) -> {
 			ItemStack tool = slot.getStack();
-			World world = entity.world;
+			World world = entity.getWorld();
 			if (button == 1 && !tool.isEmpty() && !cursorStack.isEmpty() && !world.isClient()){
 				if (tool.isDamaged()) {
 					if (tool.getItem().canRepair(tool, cursorStack) || world.getGameRules().getBoolean(DO_UNIT_REPAIR)) {
@@ -50,7 +48,7 @@ public class InventoryInteractions implements ModInitializer {
 					return RepairMethods.nameItem(tool, cursorStack);
 				}
 				if (world.getGameRules().getBoolean(DO_QUICK_CRAFTING)) {
-					return RepairMethods.tryCraft(tool, cursorStack, slot, entity, world);
+					return RepairMethods.tryCraft(tool, cursorStack, slot, cursorSlot, entity, world);
 				}
 			}
 			return false;
