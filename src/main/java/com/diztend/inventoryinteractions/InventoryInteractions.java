@@ -33,7 +33,7 @@ public class InventoryInteractions implements ModInitializer {
 			World world = entity.world;
 			if (button == 1 && !tool.isEmpty() && !cursorStack.isEmpty() && !world.isClient()){
 				if (tool.isDamaged()) {
-					if (tool.getItem().canRepair(tool, cursorStack) || world.getGameRules().getBoolean(DO_UNIT_REPAIR)) {
+					if (tool.getItem().canRepair(tool, cursorStack) && world.getGameRules().getBoolean(DO_UNIT_REPAIR)) {
 						if (!tool.hasEnchantments() || world.getGameRules().getBoolean(DO_ENCHANTED_UNIT_REPAIR)) {
 							return RepairMethods.unitRepairRate(tool, cursorStack, 0.25);
 						}
