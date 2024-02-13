@@ -1,5 +1,5 @@
 # Inventory Interactions 3
-The third and final version of the Inventory Interactions mod. 
+Adds various right-clicking interactions in the inventory, such as repairing and crafting.
 
 ## Features: 
 * Unit repair by right clicking
