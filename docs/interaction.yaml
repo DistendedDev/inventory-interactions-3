@@ -1,0 +1,85 @@
+slot:
+  - Specification for slot item.
+  - item:
+      - The item that should be in the slot for the interaction to occur.
+      - Optional
+      - incompatible: tag
+      - type: String
+  - tag:
+      - The tag that the slot item should match for the interaction to occur.
+      - Optional
+      - incompatible: item
+      - type: String
+  - nbt:
+      - >-
+        The nbt data in the slot item which is required for the interaction to
+        occur.
+      - Optional
+      - type: Json object
+  - consume:
+      - >-
+        Whether or not the item is consumed in the interaction. At least 1 of
+        the items must be consumed.
+      - default: true
+      - type: Boolean
+  - damage:
+      - The durability used for the slot item. Ignored if item is consumed.
+      - default: 0
+      - type: Integer
+cursor:
+  - Specification for cursor item.
+  - item:
+      - The item that should be held in the cursor for the interaction to occur.
+      - Optional
+      - incompatible: tag
+      - type: String
+  - tag:
+      - The tag that the cursor item should match for the interaction to occur.
+      - Optional
+      - incompatible: item
+      - type: String
+  - nbt:
+      - >-
+        The nbt data in the cursor item which is required for the interaction to
+        occur.
+      - Optional
+      - type: Json object
+  - consume:
+      - >-
+        Whether or not the item is consumed in the interaction. At least 1 of
+        the items must be consumed.
+      - default: true
+      - type: Boolean
+  - damage:
+      - The durability used for the cursor item. Ignored if item is consumed.
+      - default: 0
+      - type: Integer
+output:
+  - Specification of the output item.
+  - item:
+      - The type of item which the interaction results in.
+      - interchangeable: 'provider, recipe'
+      - type: String
+  - provider:
+      - |-
+        Itemstack from either the slot or the cursor. 
+          - For the stack, use ii:slot. 
+          - For the cursor, use ii:cursor.
+      - interchangeable: 'item, recipe'
+      - type: String
+  - recipe:
+      - |-
+        Array with 3 rows denoting a crafting recipe 
+          - S denotes slot 
+          - C denotes cursor 
+          - X denotes empty
+      - interchangeable: 'item, recipe'
+      - type: Array
+  - nbt:
+      - Nbt data added to the output stack
+      - Optional
+      - type: Json Object
+  - damage:
+      - Durability dealt to output stack
+      - default: 0
+      - type: Integer
