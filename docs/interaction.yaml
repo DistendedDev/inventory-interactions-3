@@ -1,61 +1,42 @@
 slot:
   - Specification for slot item.
   - item:
-      - The item that should be in the slot for the interaction to occur.
-      - Optional
-      - incompatible: [tag]
-      - type: String
+      - The item that should be in the slot for the interaction to occur. Interchangeable with tag.
   - tag:
-      - The tag that the slot item should match for the interaction to occur.
-      - Optional
-      - incompatible: [item]
-      - type: String
+      - The tag that the slot item should match for the interaction to occur. Interchangeable with tag.
   - consume:
-      - >-
-        Whether or not the item is consumed in the interaction. At least 1 of
-        the items must be consumed.
-      - default: true
-      - type: Boolean
+      - The number of items consumed in the interaction. Interchangeable with damage.
   - damage:
-      - The durability used for the slot item. Rounded up to the nearest integer. Ignored if item is consumed.
-      - default: 0
-      - type: Decimal
+      - The durability used for the slot item. Interchangeable with damage.
 cursor:
   - Specification for cursor item.
   - item:
-      - The item that should be held in the cursor for the interaction to occur.
-      - Optional
-      - incompatible: [tag]
-      - type: String
+      - The item that should be held in the cursor for the interaction to occur. Interchangeable with tag.
   - tag:
-      - The tag that the cursor item should match for the interaction to occur.
-      - Optional
-      - incompatible: [item]
-      - type: String
+      - The tag that the cursor item should match for the interaction to occur. Interchangeable with item.
   - consume:
-      - >-
-        Whether or not the item is consumed in the interaction. At least 1 of
-        the items must be consumed.
-      - default: true
-      - type: Boolean
+      - The number of the cursor item consumed in the interaction. Interchangeable with damage.
   - damage:
-      - The durability used for the cursor item. Rounded up to the nearest integer. Ignored if item is consumed.
-      - default: 0
-      - type: Decimal
+      - The durability used for the cursor item. Rounded up to the nearest integer. Interchangeable with consume.
 output:
   - Specification of the output item.
   - item:
-      - The type of item which the interaction results in.
-      - interchangeable: [provider, recipe]
-      - type: String
+      - The type of item which the interaction results in. Interchangeable with provider.
   - provider:
-      - |-
-        Itemstack from either the slot or the cursor. 
+      - Itemstack from either the slot or the cursor. Interchangeable with item. 
           - For the stack, use ii:slot. 
           - For the cursor, use ii:cursor.
-      - interchangeable: [item, recipe]
-      - type: String
   - damage:
-      - Durability dealt to output stack. Rounded up to the nearest integer.
-      - default: 0
-      - type: Decimal
+      - Durability dealt to output stack. Rounded up to the nearest integer. Optional.
+give:
+  - Specification of the item given to the player in another slot.
+  - item:
+      - The type of item given to the player after the interaction. Interchangeable with provider.
+  - provider:
+      - Itemstack from either the slot or the cursor. Interchangeable with item. 
+          - For the stack, use ii:slot. 
+          - For the cursor, use ii:cursor.
+  - damage:
+      - Durability dealt to given stack. Rounded up to the nearest integer. Optional. Incompatible with count.
+  - count:
+      - The number of items of the output stack. Is 1 by default.
