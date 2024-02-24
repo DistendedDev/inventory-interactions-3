@@ -1,39 +1,36 @@
 slot:
   - Specification for slot item.
   - item:
-      - The item that should be in the slot for the interaction to occur. Interchangeable with tag.
+      - The item that should be in the slot for the interaction to occur. Incompatible with tag.
   - tag:
-      - The tag that the slot item should match for the interaction to occur. Interchangeable with tag.
+      - The tag that the slot item should match for the interaction to occur. Incompatible with tag.
   - consume:
-      - The number of items consumed in the interaction. Interchangeable with damage.
+      - The number of items consumed in the interaction. Incompatible with damage, replace.
   - damage:
-      - The durability used for the slot item. Interchangeable with damage.
+      - The durability used for the slot item. Incompatible with consume, replace.
+  - replace:
+      - Item to replace the slot item after Interaction. Incompatible with consume, damage.
 cursor:
   - Specification for cursor item.
   - item:
-      - The item that should be held in the cursor for the interaction to occur. Interchangeable with tag.
+      - The item that should be held in the cursor for the interaction to occur. Incompatible with tag.
   - tag:
-      - The tag that the cursor item should match for the interaction to occur. Interchangeable with item.
+      - The tag that the cursor item should match for the interaction to occur. Incompatible with item.
   - consume:
-      - The number of the cursor item consumed in the interaction. Interchangeable with damage.
+      - The number of the cursor item consumed in the interaction. Incompatible with damage, replace.
   - damage:
-      - The durability used for the cursor item. Rounded up to the nearest integer. Interchangeable with consume.
+      - The durability used for the cursor item. Incompatible with consume, replace.
+  - replace:
+      - Item to replace the slot item after Interaction. Incompatible with consume, damage.
 output:
-  - Specification of the output item.
+  - Array of output item stacks.
+  - If the slot and cursor stacks end up empty, they replace the slot and cursor stacks.
+  - Otherwise, they are given to the player in other slots.
+  - Each of the outputs include the following specifications.
   - item:
-      - The type of item which the interaction results in. Interchangeable with provider.
+      - The type of item given to the player after the interaction. Incompatible with provider.
   - provider:
-      - Itemstack from either the slot or the cursor. Interchangeable with item. 
-          - For the stack, use ii:slot. 
-          - For the cursor, use ii:cursor.
-  - damage:
-      - Durability dealt to output stack. Rounded up to the nearest integer. Optional.
-give:
-  - Specification of the item given to the player in another slot.
-  - item:
-      - The type of item given to the player after the interaction. Interchangeable with provider.
-  - provider:
-      - Itemstack from either the slot or the cursor. Interchangeable with item. 
+      - Item stack from either the slot or the cursor. Incompatible with item. 
           - For the stack, use ii:slot. 
           - For the cursor, use ii:cursor.
   - damage:
