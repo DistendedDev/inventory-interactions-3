@@ -23,9 +23,9 @@ slot:
       - default: true
       - type: Boolean
   - damage:
-      - The durability used for the slot item. Ignored if item is consumed.
+      - The durability used for the slot item. Rounded up to the nearest integer. Ignored if item is consumed.
       - default: 0
-      - type: Integer
+      - type: Decimal
 cursor:
   - Specification for cursor item.
   - item:
@@ -51,9 +51,9 @@ cursor:
       - default: true
       - type: Boolean
   - damage:
-      - The durability used for the cursor item. Ignored if item is consumed.
+      - The durability used for the cursor item. Rounded up to the nearest integer. Ignored if item is consumed.
       - default: 0
-      - type: Integer
+      - type: Decimal
 output:
   - Specification of the output item.
   - item:
@@ -80,6 +80,6 @@ output:
       - Optional
       - type: Json Object
   - damage:
-      - Durability dealt to output stack
+      - Durability dealt to output stack. Rounded up to the nearest integer.
       - default: 0
-      - type: Integer
+      - type: Decimal
