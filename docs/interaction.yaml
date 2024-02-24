@@ -3,12 +3,12 @@ slot:
   - item:
       - The item that should be in the slot for the interaction to occur.
       - Optional
-      - incompatible: tag
+      - incompatible: [tag]
       - type: String
   - tag:
       - The tag that the slot item should match for the interaction to occur.
       - Optional
-      - incompatible: item
+      - incompatible: [item]
       - type: String
   - nbt:
       - >-
@@ -31,12 +31,12 @@ cursor:
   - item:
       - The item that should be held in the cursor for the interaction to occur.
       - Optional
-      - incompatible: tag
+      - incompatible: [tag]
       - type: String
   - tag:
       - The tag that the cursor item should match for the interaction to occur.
       - Optional
-      - incompatible: item
+      - incompatible: [item]
       - type: String
   - nbt:
       - >-
@@ -58,14 +58,14 @@ output:
   - Specification of the output item.
   - item:
       - The type of item which the interaction results in.
-      - interchangeable: 'provider, recipe'
+      - interchangeable: [provider, recipe]
       - type: String
   - provider:
       - |-
         Itemstack from either the slot or the cursor. 
           - For the stack, use ii:slot. 
           - For the cursor, use ii:cursor.
-      - interchangeable: 'item, recipe'
+      - interchangeable: [item, recipe]
       - type: String
   - recipe:
       - |-
@@ -73,7 +73,7 @@ output:
           - S denotes slot 
           - C denotes cursor 
           - X denotes empty
-      - interchangeable: 'item, recipe'
+      - interchangeable: [item, recipe]
       - type: Array
   - nbt:
       - Nbt data added to the output stack
