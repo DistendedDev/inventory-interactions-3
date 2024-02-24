@@ -10,12 +10,6 @@ slot:
       - Optional
       - incompatible: [item]
       - type: String
-  - nbt:
-      - >-
-        The nbt data in the slot item which is required for the interaction to
-        occur.
-      - Optional
-      - type: Json object
   - consume:
       - >-
         Whether or not the item is consumed in the interaction. At least 1 of
@@ -38,12 +32,6 @@ cursor:
       - Optional
       - incompatible: [item]
       - type: String
-  - nbt:
-      - >-
-        The nbt data in the cursor item which is required for the interaction to
-        occur.
-      - Optional
-      - type: Json object
   - consume:
       - >-
         Whether or not the item is consumed in the interaction. At least 1 of
@@ -75,10 +63,6 @@ output:
           - X denotes empty
       - interchangeable: [item, recipe]
       - type: Array
-  - nbt:
-      - Nbt data added to the output stack
-      - Optional
-      - type: Json Object
   - damage:
       - Durability dealt to output stack. Rounded up to the nearest integer.
       - default: 0
