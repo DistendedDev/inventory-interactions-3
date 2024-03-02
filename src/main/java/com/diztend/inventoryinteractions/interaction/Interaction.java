@@ -32,7 +32,6 @@ public class Interaction implements InventoryRMBEvent.Listener {
             ItemStack slotCopy = slotStack.copy();
             ItemStack cursorCopy = cursorStack.copy();
             int limiter = useLimit(slotStack, cursorStack);
-            II.LOGGER.info("success, count: " + limiter);
             ItemStack newSlotStack = slotSpec.action.use(limiter, slotStack, player);
             slot.setStack(newSlotStack);
             ItemStack newCursorStack = cursorSpec.action.use(limiter, cursorStack, player);
@@ -40,7 +39,6 @@ public class Interaction implements InventoryRMBEvent.Listener {
             ArrayList<ItemStack> toGive = new ArrayList<>();
             for (OutputSpec spec : outputSpecs) {
                 ItemStack stack = spec.getStack(limiter, slotCopy, cursorCopy);
-                II.LOGGER.info(String.valueOf(stack.getCount()));
                 while (stack.getCount() > stack.getMaxCount()) {
                     stack.decrement(stack.getMaxCount());
                     toGive.add(new ItemStack(stack.getItem(), stack.getMaxCount()));

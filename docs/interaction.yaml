@@ -3,7 +3,7 @@ slot:
   - item:
       - The item that should be in the slot for the interaction to occur. Incompatible with tag.
   - tag:
-      - The tag that the slot item should match for the interaction to occur. Incompatible with tag.
+      - The tag that the slot item should match for the interaction to occur. Incompatible with item.
   - consume:
       - The number of items consumed in the interaction. Incompatible with damage, replace.
   - damage:
@@ -24,7 +24,7 @@ cursor:
       - Item to replace the slot item after Interaction. Incompatible with consume, damage.
 output:
   - Array of output item stacks.
-  - If the slot and cursor stacks end up empty, they replace the slot and cursor stacks.
+  - If the slot and cursor stacks end up empty, the outputs replace the slot and cursor stacks.
   - Otherwise, they are given to the player in other slots.
   - Each of the outputs include the following specifications.
   - item:
@@ -33,6 +33,6 @@ output:
           - For referencing the cursor, use ii:cursor.
           - Otherwise, use the identifier of the item
   - damage:
-      - Durability dealt to given stack. Rounded up to the nearest integer. Optional. Incompatible with count.
+      - Durability dealt to given stack. Rounded up to the nearest integer. Incompatible with count.
   - count:
-      - The number of items of the output stack. Is 1 by default.
+      - The number of items of the output stack. Incompatible with damage.
