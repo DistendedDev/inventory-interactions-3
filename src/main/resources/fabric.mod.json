@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.diztend.inventoryinteractions.InventoryInteractions"
+      "com.diztend.inventoryinteractions.II"
     ]
   },
   "mixins": [

@@ -28,11 +28,10 @@ output:
   - Otherwise, they are given to the player in other slots.
   - Each of the outputs include the following specifications.
   - item:
-      - The type of item given to the player after the interaction. Incompatible with provider.
-  - provider:
-      - Item stack from either the slot or the cursor. Incompatible with item. 
-          - For the stack, use ii:slot. 
-          - For the cursor, use ii:cursor.
+      - The type of item given to the player after the interaction. 
+          - For referencing the slot, use ii:slot. 
+          - For referencing the cursor, use ii:cursor.
+          - Otherwise, use the identifier of the item
   - damage:
       - Durability dealt to given stack. Rounded up to the nearest integer. Optional. Incompatible with count.
   - count:

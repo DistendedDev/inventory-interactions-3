@@ -1,9 +1,11 @@
-package com.diztend.inventoryinteractions.util;
+package com.diztend.inventoryinteractions.interaction;
 
+import com.diztend.inventoryinteractions.util.IIConfig;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.recipe.CraftingRecipe;
 import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
@@ -12,7 +14,32 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class RepairMethods {
+public class Interactions {
+
+    public static boolean tryInteract(ItemStack slotStack, ItemStack cursorStack, Slot slot, StackReference cursorSlot, PlayerEntity player) {
+        World world = player.getWorld();
+        if (!slotStack.isEmpty() && !cursorStack.isEmpty()){
+            if (slotStack.isDamaged()) {
+                if (slotStack.getItem().canRepair(slotStack, cursorStack) && world.getGameRules().getBoolean(IIConfig.DO_UNIT_REPAIR)) {
+                    if (!slotStack.hasEnchantments() || world.getGameRules().getBoolean(IIConfig.DO_ENCHANTED_UNIT_REPAIR)) {
+                        return Interactions.unitRepairRate(slotStack, cursorStack, 0.25);
+                    }
+                } else if (slotStack.getItem() == cursorStack.getItem() &&
+                        world.getGameRules().getBoolean(IIConfig.DO_TOOL_COMBINE) &&
+                        !slotStack.hasEnchantments() && !cursorStack.hasEnchantments()) {
+                    return Interactions.combineTools(slotStack, cursorStack);
+                }
+            }
+            if (cursorStack.getItem() == Items.NAME_TAG && cursorStack.hasCustomName() && !slotStack.hasCustomName() &&
+                    !slotStack.getItem().equals(Items.NAME_TAG) && world.getGameRules().getBoolean(IIConfig.DO_QUICK_RENAME)) {
+                return Interactions.nameItem(slotStack, cursorStack);
+            }
+            if (world.getGameRules().getBoolean(IIConfig.DO_QUICK_CRAFTING)) {
+                return Interactions.tryCraft(slotStack, cursorStack, slot, cursorSlot, player, world);
+            }
+        }
+        return false;
+    }
 
     public static boolean unitRepair(ItemStack tool, ItemStack resource, int amount) {
         tool.setDamage(Math.max(tool.getDamage() - amount, 0));
