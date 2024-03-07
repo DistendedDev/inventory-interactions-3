@@ -7,8 +7,13 @@ import net.minecraft.world.GameRules;
 
 public class IIConfig {
 
+    public static SimpleConfig CONFIG = SimpleConfig.of("inventory_interactions")
+            .provider(s -> "# Default Gamerules")
+            .request();
+
     public static GameRules.Key<GameRules.BooleanRule> addBooleanConfig(String name, GameRules.Category category, boolean df) {
-        return GameRuleRegistry.register(name, category, GameRuleFactory.createBooleanRule(df));
+        boolean config = CONFIG.getOrDefault(name, df);
+        return GameRuleRegistry.register(name, category, GameRuleFactory.createBooleanRule(config));
     }
 
     public static final GameRules.Key<GameRules.BooleanRule> DO_UNIT_REPAIR =
@@ -27,7 +32,7 @@ public class IIConfig {
             addBooleanConfig("doQuickCrafting", GameRules.Category.PLAYER, false);
 
     public static void init() {
-        II.LOGGER.info("inventory interactions registering gamerules");
+        II.LOGGER.info("inventory interactions loading configs");
     }
 
 }
