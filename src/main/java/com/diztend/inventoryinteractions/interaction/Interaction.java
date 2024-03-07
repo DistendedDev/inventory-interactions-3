@@ -1,6 +1,5 @@
 package com.diztend.inventoryinteractions.interaction;
 
-import com.diztend.inventoryinteractions.II;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;

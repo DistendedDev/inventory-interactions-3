@@ -21,10 +21,6 @@ public class OutputSpec {
         this.provider = baseProvider;
     }
 
-    public OutputSpec(Item item) {
-        this(itemProvider(item));
-    }
-
     public OutputSpec setCount(int count) {
         provider = provider.andThen(result -> {
             result.setCount(Math.min(count, result.getMaxCount()));

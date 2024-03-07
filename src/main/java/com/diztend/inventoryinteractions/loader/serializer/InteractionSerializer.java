@@ -1,4 +1,4 @@
-package com.diztend.inventoryinteractions.loader.parser;
+package com.diztend.inventoryinteractions.loader.serializer;
 
 import com.diztend.inventoryinteractions.interaction.InputSpec;
 import com.diztend.inventoryinteractions.interaction.Interaction;
