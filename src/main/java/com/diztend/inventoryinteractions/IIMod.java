@@ -1,15 +1,12 @@
 package com.diztend.inventoryinteractions;
 
 import com.diztend.inventoryinteractions.gameplay.InventoryClickEvent;
-import com.diztend.inventoryinteractions.gameplay.RepairMethods;
+import com.diztend.inventoryinteractions.gameplay.InteractionMethods;
 import com.diztend.inventoryinteractions.util.JSONConfig;
 import com.google.gson.JsonObject;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,20 +39,20 @@ public class IIMod implements ModInitializer {
 				if (tool.isDamaged()) {
 					if (tool.getItem().canRepair(tool, cursorStack) && GLOBAL_CONFIG.getBoolean(DO_UNIT_REPAIR)) {
 						if (!tool.hasEnchantments() || GLOBAL_CONFIG.getBoolean(DO_ENCHANTED_UNIT_REPAIR)) {
-							return RepairMethods.unitRepairRate(tool, cursorStack, 0.25);
+							return InteractionMethods.unitRepairRate(tool, cursorStack, 0.25);
 						}
 					} else if (tool.getItem() == cursorStack.getItem() &&
 							GLOBAL_CONFIG.getBoolean(DO_TOOL_COMBINE) &&
 							!tool.hasEnchantments() && !cursorStack.hasEnchantments()) {
-						return RepairMethods.combineTools(tool, cursorStack);
+						return InteractionMethods.combineTools(tool, cursorStack);
 					}
 				}
 				if (cursorStack.getItem() == Items.NAME_TAG && cursorStack.hasCustomName() && !tool.hasCustomName() &&
 						!tool.getItem().equals(Items.NAME_TAG) && GLOBAL_CONFIG.getBoolean(DO_QUICK_RENAME)) {
-					return RepairMethods.nameItem(tool, cursorStack);
+					return InteractionMethods.nameItem(tool, cursorStack);
 				}
 				if (GLOBAL_CONFIG.getBoolean(DO_QUICK_CRAFTING)) {
-					return RepairMethods.tryCraft(tool, cursorStack, slot, cursorSlot, entity, world);
+					return InteractionMethods.tryCraft(tool, cursorStack, slot, cursorSlot, entity, world);
 				}
 			}
 			return false;

@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class RepairMethods {
+public class InteractionMethods {
 
     public static boolean unitRepair(ItemStack tool, ItemStack resource, int amount) {
         tool.setDamage(Math.max(tool.getDamage() - amount, 0));
