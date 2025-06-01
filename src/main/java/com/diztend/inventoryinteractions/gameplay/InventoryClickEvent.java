@@ -1,10 +1,9 @@
-package com.diztend.inventoryinteractions.util;
+package com.diztend.inventoryinteractions.gameplay;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
 
 import java.util.ArrayList;
 
