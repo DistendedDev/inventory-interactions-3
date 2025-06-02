@@ -32,27 +32,28 @@ public class IIMod implements ModInitializer {
 		defaultConfig.addProperty(DO_QUICK_RENAME, true);
 		defaultConfig.addProperty(DO_QUICK_CRAFTING, false);
 		GLOBAL_CONFIG = new JSONConfig(MOD_ID, defaultConfig, LOGGER);
-		InventoryClickEvent.addListener( (button, slot, cursorStack, cursorSlot, entity) -> {
-			ItemStack tool = slot.getStack();
+		InventoryClickEvent.addListener( (button, slot, cursorSlot, entity) -> {
+			ItemStack slotStack = slot.getStack();
+			ItemStack cursorStack = cursorSlot.get();
 			World world = entity.world;
-			if (button == 1 && !tool.isEmpty() && !cursorStack.isEmpty() && !world.isClient()){
-				if (tool.isDamaged()) {
-					if (tool.getItem().canRepair(tool, cursorStack) && GLOBAL_CONFIG.getBoolean(DO_UNIT_REPAIR)) {
-						if (!tool.hasEnchantments() || GLOBAL_CONFIG.getBoolean(DO_ENCHANTED_UNIT_REPAIR)) {
-							return InteractionMethods.unitRepairRate(tool, cursorStack, 0.25);
+			if (button == 1 && !slotStack.isEmpty() && !cursorStack.isEmpty() && !world.isClient()){
+				if (slotStack.isDamaged()) {
+					if (slotStack.getItem().canRepair(slotStack, cursorStack) && GLOBAL_CONFIG.getBoolean(DO_UNIT_REPAIR)) {
+						if (!slotStack.hasEnchantments() || GLOBAL_CONFIG.getBoolean(DO_ENCHANTED_UNIT_REPAIR)) {
+							return InteractionMethods.unitRepairRate(slotStack, cursorStack, 0.25);
 						}
-					} else if (tool.getItem() == cursorStack.getItem() &&
+					} else if (slotStack.getItem() == cursorStack.getItem() &&
 							GLOBAL_CONFIG.getBoolean(DO_TOOL_COMBINE) &&
-							!tool.hasEnchantments() && !cursorStack.hasEnchantments()) {
-						return InteractionMethods.combineTools(tool, cursorStack);
+							!slotStack.hasEnchantments() && !cursorStack.hasEnchantments()) {
+						return InteractionMethods.combineTools(slotStack, cursorStack);
 					}
 				}
-				if (cursorStack.getItem() == Items.NAME_TAG && cursorStack.hasCustomName() && !tool.hasCustomName() &&
-						!tool.getItem().equals(Items.NAME_TAG) && GLOBAL_CONFIG.getBoolean(DO_QUICK_RENAME)) {
-					return InteractionMethods.nameItem(tool, cursorStack);
+				if (cursorStack.getItem() == Items.NAME_TAG && cursorStack.hasCustomName() && !slotStack.hasCustomName() &&
+						!slotStack.getItem().equals(Items.NAME_TAG) && GLOBAL_CONFIG.getBoolean(DO_QUICK_RENAME)) {
+					return InteractionMethods.nameItem(slotStack, cursorStack);
 				}
 				if (GLOBAL_CONFIG.getBoolean(DO_QUICK_CRAFTING)) {
-					return InteractionMethods.tryCraft(tool, cursorStack, slot, cursorSlot, entity, world);
+					return InteractionMethods.tryCraft(slotStack, cursorStack, slot, cursorSlot, entity, world);
 				}
 			}
 			return false;

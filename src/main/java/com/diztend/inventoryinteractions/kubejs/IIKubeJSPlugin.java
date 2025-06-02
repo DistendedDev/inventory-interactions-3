@@ -13,7 +13,7 @@ public class IIKubeJSPlugin extends KubeJSPlugin {
     public void registerEvents() {
         InventoryEvents.GROUP.register();
         InventoryEvent.CLICK.register(this::inventoryClick);
-        InventoryClickEvent.addListener(((button, slot, cursorStack, cursorSlot, entity) -> {
+        InventoryClickEvent.addListener(((button, slot, cursorSlot, entity) -> {
             EventResult result = InventoryEvent.CLICK.invoker().clickItem(button, slot, cursorSlot, entity);
             return result.interruptsFurtherEvaluation();
         }));

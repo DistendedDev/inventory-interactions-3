@@ -17,7 +17,7 @@ public class ClickDetectorMixin {
 
 	@Inject(at = @At("HEAD"), method = "onClicked", cancellable = true)
 	private void onClickInject(ItemStack stack, ItemStack otherStack, Slot slot, ClickType clickType, PlayerEntity player, StackReference cursorStackReference, CallbackInfoReturnable<Boolean> cir) {
-		if (InventoryClickEvent.onClick(clickType == ClickType.RIGHT ? 1 : 0, slot, otherStack, cursorStackReference, player)) {
+		if (InventoryClickEvent.onClick(clickType == ClickType.RIGHT ? 1 : 0, slot, cursorStackReference, player)) {
 			cir.setReturnValue(true);
 		}
 	}
