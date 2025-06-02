@@ -17,11 +17,16 @@ public class IIMod implements ModInitializer {
 	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 	public static JSONConfig GLOBAL_CONFIG;
 
-	public static final String DO_UNIT_REPAIR= "doUnitRepair";
-	public static final String DO_ENCHANTED_UNIT_REPAIR= "doUnitRepairEnchanted";
-	public static final String DO_TOOL_COMBINE= "doToolCombine";
-	public static final String DO_QUICK_RENAME= "doQuickRename";
-	public static final String DO_QUICK_CRAFTING= "doQuickCrafting";
+	public static final String DO_UNIT_REPAIR = "Repair items by clicking with an item";
+	public static final String DO_ENCHANTED_UNIT_REPAIR = "Repair items even if it is enchanted";
+	public static final String DO_TOOL_COMBINE = "Combine tools";
+	public static final String DO_RENAME = "Rename items with name tags";
+	public static final String DO_STRIP = "Strip logs with axe";
+	public static final String DO_CONCRETE_SOLIDIFY = "Solidify concrete powder with water bucket";
+	public static final String DO_COPPER_WAX = "Apply wax to copper";
+	public static final String DO_COPPER_STRIP = "Strip wax or oxidation off copper with axe";
+	//public static final String DO_ARMOR_DYE = "Dye leather items";
+	public static final String DO_SHAPELESS_CRAFTING = "Apply shapeless crafting when clicking 2 items";
 
 	@Override
 	public void onInitialize() {
@@ -29,8 +34,12 @@ public class IIMod implements ModInitializer {
 		defaultConfig.addProperty(DO_UNIT_REPAIR, true);
 		defaultConfig.addProperty(DO_ENCHANTED_UNIT_REPAIR, true);
 		defaultConfig.addProperty(DO_TOOL_COMBINE, true);
-		defaultConfig.addProperty(DO_QUICK_RENAME, true);
-		defaultConfig.addProperty(DO_QUICK_CRAFTING, false);
+		defaultConfig.addProperty(DO_RENAME, true);
+		defaultConfig.addProperty(DO_STRIP, true);
+		defaultConfig.addProperty(DO_CONCRETE_SOLIDIFY, true);
+		defaultConfig.addProperty(DO_COPPER_WAX, false);
+		defaultConfig.addProperty(DO_COPPER_STRIP, false);
+		defaultConfig.addProperty(DO_SHAPELESS_CRAFTING, false);
 		GLOBAL_CONFIG = new JSONConfig(MOD_ID, defaultConfig, LOGGER);
 		InventoryClickEvent.addListener( (button, slot, cursorSlot, entity) -> {
 			ItemStack slotStack = slot.getStack();
@@ -49,10 +58,10 @@ public class IIMod implements ModInitializer {
 					}
 				}
 				if (cursorStack.getItem() == Items.NAME_TAG && cursorStack.hasCustomName() && !slotStack.hasCustomName() &&
-						!slotStack.getItem().equals(Items.NAME_TAG) && GLOBAL_CONFIG.getBoolean(DO_QUICK_RENAME)) {
+						!slotStack.getItem().equals(Items.NAME_TAG) && GLOBAL_CONFIG.getBoolean(DO_RENAME)) {
 					return InteractionMethods.nameItem(slotStack, cursorStack);
 				}
-				if (GLOBAL_CONFIG.getBoolean(DO_QUICK_CRAFTING)) {
+				if (GLOBAL_CONFIG.getBoolean(DO_SHAPELESS_CRAFTING)) {
 					return InteractionMethods.tryCraft(slotStack, cursorStack, slot, cursorSlot, entity, world);
 				}
 			}
