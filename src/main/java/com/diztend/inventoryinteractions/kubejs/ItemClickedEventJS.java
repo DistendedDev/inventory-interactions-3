@@ -3,7 +3,6 @@ package com.diztend.inventoryinteractions.kubejs;
 import dev.latvian.mods.kubejs.player.PlayerEventJS;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.StackReference;
-import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
 
 public class ItemClickedEventJS extends PlayerEventJS {
